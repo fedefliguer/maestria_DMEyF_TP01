@@ -2,22 +2,21 @@
 # Función: Sobre el dataset original, crea las columnas que crearon en el dropbox, archivo '1002_fe_todoenuno_corrige.r'
 
 nuevas_columnas = function(dataset){
+  
+  ##################### SALEN DEL DROPBOX
+  
   dataset[ , mv_status01       := pmax( Master_status,  Visa_status, na.rm = TRUE) ]
   dataset[ , mv_status02       := Master_status +  Visa_status ]
   dataset[ , mv_status03       := pmax( ifelse( is.na(Master_status), 9, Master_status) , ifelse( is.na(Visa_status), 9, Visa_status) ) ]
   dataset[ , mv_status04       := ifelse( is.na(Master_status), 9, Master_status)  +  ifelse( is.na(Visa_status), 9, Visa_status)  ]
   dataset[ , mv_status05       := ifelse( is.na(Master_status), 9, Master_status)  +  10*ifelse( is.na(Visa_status), 9, Visa_status)  ]
-  
   dataset[ , mv_status06       := ifelse( is.na(Visa_status), 
                                           ifelse( is.na(Master_status), 9, Master_status), 
                                           Visa_status)  ]
-  
   dataset[ , mv_status07       := ifelse( is.na(Master_status), 
                                           ifelse( is.na(Visa_status), 9, Visa_status), 
                                           Master_status)  ]
-  
   dataset[ , mv_mfinanciacion_limite := rowSums( cbind( Master_mfinanciacion_limite,  Visa_mfinanciacion_limite) , na.rm=TRUE ) ]
-  
   dataset[ , mv_Fvencimiento         := pmin( Master_Fvencimiento, Visa_Fvencimiento, na.rm = TRUE) ]
   dataset[ , mv_Finiciomora          := pmin( Master_Finiciomora, Visa_Finiciomora, na.rm = TRUE) ]
   dataset[ , mv_msaldototal          := rowSums( cbind( Master_msaldototal,  Visa_msaldototal) , na.rm=TRUE ) ]
@@ -37,7 +36,6 @@ nuevas_columnas = function(dataset){
   dataset[ , mv_cconsumos            := rowSums( cbind( Master_cconsumos,  Visa_cconsumos) , na.rm=TRUE ) ]
   dataset[ , mv_cadelantosefectivo   := rowSums( cbind( Master_cadelantosefectivo,  Visa_cadelantosefectivo) , na.rm=TRUE ) ]
   dataset[ , mv_mpagominimo          := rowSums( cbind( Master_mpagominimo,  Visa_mpagominimo) , na.rm=TRUE ) ]
-  
   dataset[ , mvr_Master_mlimitecompra:= Master_mlimitecompra / mv_mlimitecompra ]
   dataset[ , mvr_Visa_mlimitecompra  := Visa_mlimitecompra / mv_mlimitecompra ]
   dataset[ , mvr_msaldototal         := mv_msaldototal / mv_mlimitecompra ]
