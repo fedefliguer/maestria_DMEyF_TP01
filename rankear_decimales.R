@@ -14,7 +14,7 @@ rankear_decimales = function(dataset){
   for (periodo in unique(rankeables_dataset$foto_mes)){
     mes = rankeables_dataset[foto_mes == periodo,]
     mes = data.frame(mes[, c("numero_de_cliente", "foto_mes")], lapply(mes, rank, ties.method='min'))
-    dataset_ranked = rbind(dataset_ranked, mes)
+    ds_ranked = rbind(ds_ranked, mes)
     assign(paste("ds_ranked"), ds_ranked, envir = .GlobalEnv)
   }
   
