@@ -53,6 +53,8 @@ nuevas_columnas = function(dataset){
   dataset[ , mvr_mconsumototal       := mv_mconsumototal  / mv_mlimitecompra ]
   dataset[ , mvr_mpagominimo         := mv_mpagominimo  / mv_mlimitecompra ]
   
+  ##################### SEPARO LAS CLASES EN DOS (ASÍ ME QUEDA EN LA ÚLTIMA VARIABLE)
+  
   dataset[, clase_binaria := ifelse(clase_ternaria == "BAJA+2", "evento", "no_evento")]
   dataset[, c("clase_ternaria") := NULL]
 }
