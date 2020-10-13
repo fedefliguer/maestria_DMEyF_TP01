@@ -92,7 +92,7 @@ variables_historicas = function(dataset){
     dataset[ , paste( campo, "__max" , sep="" ):= nueva_col[ (2*last +1):(3*last) ]  ]
   }
 
-  remove(campo, campo_idx, col_original, columnas_no_procesar, columnas_originales, columnas_originales_a_procesar, i, last, nueva_col, vector_desde, vector_ids, ventana_regresion, fhistC())
+  remove(campo, campo_idx, col_original, columnas_no_procesar, columnas_originales, columnas_originales_a_procesar, i, last, nueva_col, vector_desde, vector_ids, ventana_regresion)
   nuevo_orden <-  c( setdiff( colnames( dataset ) , "clase_binaria" ) , "clase_binaria" )
   setcolorder( dataset, nuevo_orden )
   }
