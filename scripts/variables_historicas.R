@@ -1,7 +1,7 @@
 # Nombre de archivo: variables_historicas.R
 # Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo y tendencia en seis meses.
 
-variables_historicas = function(dataset){
+variables_historicas = function(dataset, periodos){
   cppFunction('NumericVector fhistC(NumericVector pcolumna, IntegerVector pdesde ) 
   {
     /* Aqui se cargan los valores para la regresion */
@@ -70,7 +70,7 @@ variables_historicas = function(dataset){
   }')
 
   setorder( dataset,  numero_de_cliente, foto_mes )
-  ventana_regresion  <- 6
+  ventana_regresion  <- periodos
   last <- nrow( dataset )
   kcampo_id_idx  <-  match( "numero_de_cliente", names(dataset) )
   vector_ids   <- dataset[[  kcampo_id_idx  ]]
