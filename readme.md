@@ -5,6 +5,7 @@ library( "data.table")
 library(ggplot2)
 library(skimr)
 library(devtools)
+library( "Rcpp" )
 set.seed(1)
 
 kcampos_separador               <-  "\t"
