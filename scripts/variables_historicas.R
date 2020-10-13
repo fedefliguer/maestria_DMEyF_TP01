@@ -1,5 +1,5 @@
-# Nombre de archivo: rankear_decimales.R
-# Función: Sobre el dataset original, revisa qué columnas son numéricas y no enteras (por lo tanto decimales, por lo tanto asumiremos nominales) y rankea a los usuarios por mes, de menor a mayor. Por ahora sale otro data.table con esa info únicamente (+ cliente y mes) que debe reemplazarse.
+# Nombre de archivo: variables_historicas.R
+# Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo y tendencia en seis meses.
 
 rankear_decimales = function(dataset){
   cppFunction('NumericVector fhistC(NumericVector pcolumna, IntegerVector pdesde ) 
