@@ -18,12 +18,12 @@ rankear_decimales_v2 = function(dataset){
     assign(paste("ds_ranked"), ds_ranked, envir = .GlobalEnv)
   }
   
-  ds_ranked = ds_ranked[, !c("foto_mes.1", "numero_de_cliente.1"), with=FALSE]
-  ds = ds[, !setdiff(names(ds_ranked),c("numero_de_cliente", "foto_mes")), with=FALSE]
-  setkey(ds, "numero_de_cliente", "foto_mes")
+  ds_ranked <<- ds_ranked[, !c("foto_mes.1", "numero_de_cliente.1"), with=FALSE]
+  dataset <<- dataset[, !setdiff(names(ds_ranked),c("numero_de_cliente", "foto_mes")), with=FALSE]
+  setkey(dataset, "numero_de_cliente", "foto_mes")
   setkey(ds_ranked, "numero_de_cliente", "foto_mes")
-  ds <- ds[ds_ranked, nomatch=0]
-  nuevo_orden <-  c( setdiff( colnames( ds ) , "clase_binaria" ) , "clase_binaria" )
-  setcolorder( ds, nuevo_orden )
+  dataset <<- dataset[ds_ranked, nomatch=0]
+  nuevo_orden <-  c( setdiff( colnames( dataset ) , "clase_binaria" ) , "clase_binaria" )
+  setcolorder( dataset, nuevo_orden )
   remove(ds_ranked)
 }
