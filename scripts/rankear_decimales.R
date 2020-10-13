@@ -21,10 +21,11 @@ rankear_decimales = function(dataset){
   remove(mes, rankeables_cols, rankeables_dataset, no_enteras, numericas, periodo)
   
   dataset = dataset[, !setdiff(names(ds_ranked),c("numero_de_cliente", "foto_mes")), with=FALSE]
-  dataset = dataset[, !c("foto_mes.1", "numero_de_cliente.1"), with=FALSE]
   setkey(dataset, "numero_de_cliente", "foto_mes")
   setkey(ds_ranked, "numero_de_cliente", "foto_mes")
   dataset <- dataset[ds_ranked, nomatch=0]
   nuevo_orden <-  c( setdiff( colnames( dataset ) , "clase_binaria" ) , "clase_binaria" )
   setcolorder( dataset, nuevo_orden )
+  
+  remove(ds_ranked)
 }
