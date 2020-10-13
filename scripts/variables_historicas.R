@@ -1,7 +1,7 @@
 # Nombre de archivo: variables_historicas.R
 # Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo y tendencia en seis meses.
 
-rankear_decimales = function(dataset){
+variables_historicas = function(dataset){
   cppFunction('NumericVector fhistC(NumericVector pcolumna, IntegerVector pdesde ) 
   {
     /* Aqui se cargan los valores para la regresion */
