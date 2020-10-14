@@ -26,4 +26,10 @@ randomForest_basico = function(dataset_train, dataset_test){
                      min.node.size= params$min.node.size,
                      max.depth=     params$max.depth
   )
+  
+  prediccion_test  <- predict(  modelo, dataset_test )
+
+  ganancia_test_rf_basico <<-  sum( (prediccion_test$predictions[ ,"evento" ]>0.025) 
+                         * dataset_test[, ifelse( clase_binaria=="evento",29250,-750)])
+
 }
