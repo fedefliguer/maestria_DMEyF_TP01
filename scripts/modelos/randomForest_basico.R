@@ -18,7 +18,7 @@ randomForest_basico = function(dataset_train, dataset_test){
                    "max.depth"=        0   # 0 significa profundidad infinita
   )
   
-  modelo  <- ranger( formula= "clase_binaria ~ .",
+  modelo  <<- ranger( formula= "clase_binaria ~ .",
                      data= dataset_train,  
                      probability=   TRUE,  #para que devuelva las probabilidades
                      num.trees=     params$num.trees,
