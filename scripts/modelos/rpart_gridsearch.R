@@ -45,7 +45,7 @@ rpart_gridsearch = function(dataset_train, dataset_test){
     }
   }
   
-  ganancia_rpart_gridsearch <<- mejor_params$ganancia
+  ganancia_test_rpart_gridsearch <<- mejor_params$ganancia
   
   modelo  <<-  rpart ("clase_binaria ~ .",  
                       data = dataset_train[, !c("foto_mes", "numero_de_cliente"), with=FALSE], 
