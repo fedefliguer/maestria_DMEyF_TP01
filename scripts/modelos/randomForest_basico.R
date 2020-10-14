@@ -5,11 +5,11 @@ randomForest_basico = function(dataset_train, dataset_test){
   library(randomForest)
   library(ranger)
   
-  dataset_train = data.frame(na.roughfix( dataset_train[, setdiff( colnames( dataset_train ) , "clase_binaria" ), with= FALSE] ), dataset_train$clase_binaria)
+  dataset_train = data.table(na.roughfix( dataset_train[, setdiff( colnames( dataset_train ) , "clase_binaria" ), with= FALSE] ), dataset_train$clase_binaria)
   names(dataset_train)[length(names(dataset_train))]<-"clase_binaria" 
-  dataset_test = data.frame(na.roughfix( dataset_test[, setdiff( colnames( dataset_test ) , "clase_binaria" ), with= FALSE] ), dataset_test$clase_binaria)
+  dataset_test = data.table(na.roughfix( dataset_test[, setdiff( colnames( dataset_test ) , "clase_binaria" ), with= FALSE] ), dataset_test$clase_binaria)
   names(dataset_test)[length(names(dataset_test))]<-"clase_binaria" 
-  enero = data.frame(na.roughfix( enero[, setdiff( colnames( enero ) , "clase_binaria" ), with= FALSE] ), enero$clase_binaria)
+  enero = data.table(na.roughfix( enero[, setdiff( colnames( enero ) , "clase_binaria" ), with= FALSE] ), enero$clase_binaria)
   names(enero)[length(names(enero))]<-"clase_binaria" 
   
   params  <- list( "num.trees"=      500,  #cantidad de arboles
