@@ -2,6 +2,7 @@
 # Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo y tendencia en seis meses.
 
 variables_historicas = function(dataset, periodos){
+  library(Rcpp)
   cppFunction('NumericVector fhistC(NumericVector pcolumna, IntegerVector pdesde ) 
   {
     /* Aqui se cargan los valores para la regresion */
