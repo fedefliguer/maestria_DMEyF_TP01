@@ -5,7 +5,13 @@ library( "data.table")
 library(ggplot2)
 library(skimr)
 library(devtools)
+library(Rcpp)
+library(rpart)
 set.seed(1)
+
+#limpio la memoria
+rm( list=ls() )
+gc()
 
 kcampos_separador               <-  "\t"
 karchivo_entrada_7meses_zip     <-  "paquete_premium_201906_202001.txt.gz"
@@ -40,8 +46,24 @@ variables_historicas(ds, 6) # Cambiar con los períodos de lag
 
 train = c(201909, 201910) # Cambiar con el período que querramos entrenar
 test = c(201911) # Cambiar con el período que querramos testear
+pc_columnas = 0.03 # Con esto corre local. Si queremos usar todas las columnas igualarlo a 1.
 
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/separacion_conjuntos.R")
-separacion_conjuntos(ds, train, test)
+separacion_conjuntos(ds, train, test, pc_columnas)
+
+remove(ds_paso0_original, ds_paso1_columnas, ds_paso2_rankeada)
+backup_train = ds_train 
+backup_test = ds_test
+backup_enero = enero 
+
+# A partir de acá se elige el modelo/optimización que se va a correr
+max_depths = c(3,4,5)
+min_splits = c(5,10,15)
+min_buckets = c(5,10,15)
+source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
+rpart_gridsearch(ds_train, ds_test)
+
+source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/randomForest_basico.R")
+randomForest_basico(ds_train, ds_test)
 ```
 
