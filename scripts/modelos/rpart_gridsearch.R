@@ -7,6 +7,8 @@ rpart_gridsearch = function(dataset_train, dataset_test){
                          "minsplit"= -1,
                          "minbucket"= -1)
   
+  i = 1
+  
   for( vmaxdepth  in max_depths)    
   {
     for(vminsplit in  min_splits)
@@ -34,6 +36,9 @@ rpart_gridsearch = function(dataset_train, dataset_test){
         
         ganancia <- sum(  entrega[ estimulo==1, ifelse( clase_binaria=="evento", 29250, -750) ])
         
+        print(paste("Corrida", i, "de", cantidad, ", con parámetro maxdepth = ", vmaxdepth, ", parámetro minsplit = ", vminsplit, " y parámetro minbucket = ", vminbucket, " y resultado ganancia = ", ganancia))
+        
+        i = i + 1
         if( ganancia > mejor_params$ganancia )
         {
           mejor_params$ganancia  <- ganancia
