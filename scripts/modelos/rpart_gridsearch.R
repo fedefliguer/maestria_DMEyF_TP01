@@ -8,6 +8,7 @@ rpart_gridsearch = function(dataset_train, dataset_test){
                          "minbucket"= -1)
   
   i = 1
+  cantidad = length(max_depths)*length(min_splits)*length(min_buckets)
   
   for( vmaxdepth  in max_depths)    
   {
@@ -15,8 +16,6 @@ rpart_gridsearch = function(dataset_train, dataset_test){
     {
       for(vminbucket in  min_buckets)
       {
-        cantidad = length(max_depths)*length(min_splits)*length(min_buckets)
-        
         modelo   <-  rpart("clase_binaria ~ .",  
                            data = dataset_train[, !c("foto_mes", "numero_de_cliente"), with=FALSE],
                            model= TRUE,
