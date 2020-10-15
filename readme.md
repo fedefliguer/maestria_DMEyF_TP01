@@ -63,7 +63,42 @@ min_buckets = c(5,10,15)
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
 rpart_gridsearch(ds_train, ds_test)
 
+# Elegir qué modelo correr, el resto comentarlo
+
+# Árbol con grid search
+
+max_depths = c(3,4,5)
+min_splits = c(5,10,15)
+min_buckets = c(5,10,15)
+
+source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
+rpart_gridsearch(ds_train, ds_test)
+
+# Random forest básico
+
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/randomForest_basico.R")
 randomForest_basico(ds_train, ds_test)
+
+if(class(modelo)=="rpart"){
+  prediction_enero  <- predict( modelo, enero, type = "prob")
+  
+  entrega <-   as.data.table(cbind( "numero_de_cliente" = enero[, numero_de_cliente],
+                                    "prob" = prediction_enero[, "evento"])
+  )
+  
+  entrega[  ,  estimulo :=  as.integer( prob > 0.025)]
+  entrega = entrega[, c("numero_de_cliente", "estimulo")]
+}
+
+if(class(modelo)=="ranger"){
+  prediction_enero  <- predict( modelo, enero)
+  
+  entrega <-   as.data.table(cbind( "numero_de_cliente" = enero[, numero_de_cliente],
+                                    "prob" = prediction_enero$predictions[, "evento"])
+  )
+  
+  entrega[  ,  estimulo :=  as.integer( prob > 0.025)]
+  entrega = entrega[, c("numero_de_cliente", "estimulo")]
+}
 ```
 
