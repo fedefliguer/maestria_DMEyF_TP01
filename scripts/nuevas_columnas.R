@@ -36,6 +36,7 @@ nuevas_columnas = function(dataset){
   dataset[ , mv_cconsumos            := rowSums( cbind( Master_cconsumos,  Visa_cconsumos) , na.rm=TRUE ) ]
   dataset[ , mv_cadelantosefectivo   := rowSums( cbind( Master_cadelantosefectivo,  Visa_cadelantosefectivo) , na.rm=TRUE ) ]
   dataset[ , mv_mpagominimo          := rowSums( cbind( Master_mpagominimo,  Visa_mpagominimo) , na.rm=TRUE ) ]
+  dataset[ , mv_delinquency          := pmax( Master_delinquency, Visa_delinquency, na.rm = TRUE)  ]
   dataset[ , mvr_Master_mlimitecompra:= Master_mlimitecompra / mv_mlimitecompra ]
   dataset[ , mvr_Visa_mlimitecompra  := Visa_mlimitecompra / mv_mlimitecompra ]
   dataset[ , mvr_msaldototal         := mv_msaldototal / mv_mlimitecompra ]
