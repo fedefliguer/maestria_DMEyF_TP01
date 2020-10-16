@@ -3,7 +3,6 @@
 ``` r
 library( "data.table")
 library(ggplot2)
-library(skimr)
 library(devtools)
 library(Rcpp)
 library(rpart)
@@ -60,17 +59,6 @@ backup_enero = enero
 max_depths = c(3,4,5)
 min_splits = c(5,10,15)
 min_buckets = c(5,10,15)
-source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
-rpart_gridsearch(ds_train, ds_test)
-
-# Elegir qué modelo correr, el resto comentarlo
-
-# Árbol con grid search
-
-max_depths = c(3,4,5)
-min_splits = c(5,10,15)
-min_buckets = c(5,10,15)
-
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
 rpart_gridsearch(ds_train, ds_test)
 
