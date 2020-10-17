@@ -2,6 +2,7 @@
 # Función: Corre un árbol de decision iterando sobre un vector de max_dephts, min_splits y min_buckets.
 
 rpart_gridsearch = function(dataset_train, dataset_test){
+  library(rpart)
   mejor_params <- list(  "ganancia"= -1,
                          "maxdepth"= -1,
                          "minsplit"= -1,
