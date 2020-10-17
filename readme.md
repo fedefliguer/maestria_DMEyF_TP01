@@ -45,7 +45,8 @@ variables_historicas(ds, 6) # Cambiar con los períodos de lag
 
 train = c(201909, 201910) # Cambiar con el período que querramos entrenar
 test = c(201911) # Cambiar con el período que querramos testear
-pc_columnas = 0.03 # Con esto corre local. Si queremos usar todas las columnas igualarlo a 1.
+pc_columnas = 0.03 # Con esto corre local. Si queremos usar todas las columnas igualarlo a 1 o no asignarlo.
+pc_filas_train = 0.5 # Con esto corre local. Si queremos usar todas las filas igualarlo a 1 o no asignarlo.
 
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/separacion_conjuntos.R")
 separacion_conjuntos(ds, train, test, pc_columnas)
