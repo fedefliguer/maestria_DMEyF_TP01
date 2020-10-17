@@ -5,7 +5,6 @@ library( "data.table")
 library(ggplot2)
 library(devtools)
 library(Rcpp)
-library(rpart)
 set.seed(1)
 
 #limpio la memoria
@@ -22,8 +21,6 @@ ds_paso0_original = ds # Estos pasos los agrego para no tener que volver a carga
 
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/nuevas_columnas.R")
 nuevas_columnas(ds)
-
-ds_paso1_columnas = ds
 
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/rankear_decimales.R")
 rankear_decimales(ds)
@@ -43,49 +40,60 @@ remove(ds_ranked)
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/variables_historicas.R")
 variables_historicas(ds, 6) # Cambiar con los períodos de lag
 
-train = c(201909, 201910) # Cambiar con el período que querramos entrenar
+ds_paso3_historicas = ds
+
+train = c(201909) # Cambiar con el período que querramos entrenar
 test = c(201911) # Cambiar con el período que querramos testear
-pc_columnas = 0.03 # Con esto corre local. Si queremos usar todas las columnas igualarlo a 1 o no asignarlo.
-pc_filas_train = 0.5 # Con esto corre local. Si queremos usar todas las filas igualarlo a 1 o no asignarlo.
+pc_columnas = 0.005 # Con esto corre local. Si queremos usar todas las columnas igualarlo a 1.
+pc_filas_train = 0.002 # Con esto corre local. Si queremos usar todas las filas igualarlo a 1.
 
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/separacion_conjuntos.R")
-separacion_conjuntos(ds, train, test, pc_columnas)
+separacion_conjuntos(ds, train, test, pc_columnas, pc_filas_train)
 
-remove(ds_paso0_original, ds_paso1_columnas, ds_paso2_rankeada)
-backup_train = ds_train 
-backup_test = ds_test
-backup_enero = enero 
+remove(ds_paso0_original, ds_paso2_rankeada)
 
-# A partir de acá se elige el modelo/optimización que se va a correr
-max_depths = c(3,4,5)
-min_splits = c(5,10,15)
-min_buckets = c(5,10,15)
-source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
-rpart_gridsearch(ds_train, ds_test)
+# Elegir qué modelo correr
+
+# Árbol con grid search
+# max_depths = c( 13, 12, 11, 10, 9)
+# min_splits = c( 9, 10, 11, 12, 13)
+# min_buckets = c( 9, 10, 11, 12, 13)
+# source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
+# rpart_gridsearch(ds_train, ds_test)
 
 # Random forest básico
+# source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/randomForest_basico.R")
+# randomForest_basico(ds_train, ds_test)
 
-source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/randomForest_basico.R")
-randomForest_basico(ds_train, ds_test)
+# Random forest con optimización bayesiana
+# Para correr local hay que crear una carpeta que se llame work en el directorio, para correr en la nube ?
+num_trees_BO = c(531, 531) # En dropbox de 1 a 999
+pmtry_BO = c(4, 5) # En dropbox de 2 a 20
+pmin.node.size_BO = c(29, 31) # En dropbox de 1 a 40
+pmax.depth_BO = c(9, 11) # En dropbox de 0 a 20
+numero_iteraciones = 1 # En dropbox es 100
+numero_experimento = 6 # Cada vez que hacemos una nueva, agregar un nro más
+source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger.R")
+bo_ranger(ds_test, ds_train, numero_experimento, numero_iteraciones)
 
 if(class(modelo)=="rpart"){
   prediction_enero  <- predict( modelo, enero, type = "prob")
-  
+
   entrega <-   as.data.table(cbind( "numero_de_cliente" = enero[, numero_de_cliente],
                                     "prob" = prediction_enero[, "evento"])
   )
-  
+
   entrega[  ,  estimulo :=  as.integer( prob > 0.025)]
   entrega = entrega[, c("numero_de_cliente", "estimulo")]
 }
 
 if(class(modelo)=="ranger"){
   prediction_enero  <- predict( modelo, enero)
-  
+
   entrega <-   as.data.table(cbind( "numero_de_cliente" = enero[, numero_de_cliente],
                                     "prob" = prediction_enero$predictions[, "evento"])
   )
-  
+
   entrega[  ,  estimulo :=  as.integer( prob > 0.025)]
   entrega = entrega[, c("numero_de_cliente", "estimulo")]
 }
