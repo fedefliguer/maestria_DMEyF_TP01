@@ -71,7 +71,8 @@ num_trees_BO = c(531, 531) # En dropbox de 1 a 999
 pmtry_BO = c(4, 5) # En dropbox de 2 a 20
 pmin.node.size_BO = c(29, 31) # En dropbox de 1 a 40
 pmax.depth_BO = c(9, 11) # En dropbox de 0 a 20
-numero_iteraciones = 1 # En dropbox es 100
+numero_iteraciones = 1 # En dropbox es 100. Cantidad real de iteraciones: cantidad de parámetros^2 + numero_iteraciones
+
 numero_experimento = 6 # Cada vez que hacemos una nueva, agregar un nro más
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger.R")
 bo_ranger(ds_test, ds_train, numero_experimento, numero_iteraciones)
