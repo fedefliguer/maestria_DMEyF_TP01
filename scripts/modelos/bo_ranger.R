@@ -37,8 +37,14 @@ bo_ranger = function(dataset_train, dataset_test, nro_experimento, nro_iteracion
     
     prediccion_test  <- predict( modelo, dataset_test )
     
-    ganancia_test  <- sum( (prediccion_test$predictions[ , "evento"] > 0.025) * 
+    test_ganancia  <- sum( (prediccion_test$predictions[ , "evento"] > 0.025) * 
                              dataset_test[, ifelse( clase_binaria=="evento",29250,-750)])
+    
+    test_predichos = sum(fifelse(prediccion_test$predictions[, "evento"] > 0.025, 1, 0))
+    
+    test_predichos_ok = (test_ganancia + 750 * test_predichos)/30000
+      
+    test_predichos_mal = test_predichos - test_predichos_ok    
     
     #imprimo los resultados al archivo klog
     cat( file= klog, 
@@ -49,9 +55,12 @@ bo_ranger = function(dataset_train, dataset_test, nro_experimento, nro_iteracion
          x$pmtry, "\t",
          x$pmin.node.size, "\t",
          x$pmax.depth, "\t",
-         ganancia_test, "\n" )
+         test_predichos, "\t",
+         test_predichos_ok, "\t",
+         test_predichos_mal, "\t",
+         test_ganancia, "\n" )
     
-    return( ganancia_test )
+    return( test_ganancia )
   }
   
   if(!file.exists( klog ) )
@@ -64,7 +73,10 @@ bo_ranger = function(dataset_train, dataset_test, nro_experimento, nro_iteracion
          "mtry", "\t", 
          "min.node.size", "\t",
          "max.depth", "\t",
-         "gan_testing", "\n")
+         "test_predichos", "\t",
+         "test_predichos_ok", "\t",
+         "test_predichos_mal", "\t",
+         "test_ganancia", "\n")
   }
   
   configureMlr(show.learner.output = FALSE)
