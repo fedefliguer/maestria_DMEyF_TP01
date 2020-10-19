@@ -75,7 +75,7 @@ numero_experimento = 11 # Cada vez que hacemos una nueva, agregar un nro más
 #source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger.R")
 #bo_ranger(ds_train, ds_test, numero_experimento, numero_iteraciones)
 
-source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger_v2")
+source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger_v2.R")
 bo_ranger_v2(ds_train, ds_test, numero_experimento, numero_iteraciones)
 
 if(class(modelo)=="rpart"){
