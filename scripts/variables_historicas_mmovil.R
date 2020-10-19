@@ -87,7 +87,6 @@ variables_historicas_mmovil = function(dataset, periodos, periodos_mmovil){
      .SDcols = rollear,
      by = numero_de_cliente]
   
-  setcolorder( dataset, nuevo_orden )
   nuevo_orden <-  c( setdiff( colnames(dataset ) , "clase_binaria" ) , "clase_binaria" )
-  remove(campo, campo_idx, col_original, columnas_no_procesar, columnas_originales, columnas_originales_a_procesar, i, last, nueva_col, vector_desde, vector_ids, ventana_regresion)
+  setcolorder( dataset, nuevo_orden )
   }
