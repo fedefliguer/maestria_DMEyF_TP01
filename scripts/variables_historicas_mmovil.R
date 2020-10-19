@@ -1,7 +1,7 @@
 # Nombre de archivo: variables_historicas_mmovil.R
 # Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo y tendencia en seis meses. Además crea la media movil para variables fijas.
 
-variables_historicas = function(dataset, periodos){
+variables_historicas_mmovil = function(dataset, periodos){
   library(Rcpp)
   cppFunction('NumericVector fhistC(NumericVector pcolumna, IntegerVector pdesde ) 
   {
