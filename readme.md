@@ -40,7 +40,7 @@ remove(ds_ranked)
 # variables_historicas(ds, 6) # Cambiar con los períodos de lag
 
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/variables_historicas_mmovil.R")
-variables_historicas_mmovil(ds, 6, 3) # Cambiar con los períodos de lag
+variables_historicas_mmovil(ds, 6, 3) # Cambiar con los períodos de lag y períodos de memoria de la media movil.
 
 train = c(201909) # Cambiar con el período que querramos entrenar
 test = c(201911) # Cambiar con el período que querramos testear
@@ -100,6 +100,6 @@ if(class(modelo)=="ranger"){
   entrega = entrega[, c("numero_de_cliente", "estimulo")]
 }
 
-fwrite( entrega[ ,  c("numero_de_cliente", "estimulo"), with=FALSE], sep=",",  file="ranger_1910.csv")
+fwrite( entrega[ ,  c("numero_de_cliente", "estimulo"), with=FALSE], sep=",",  file="ranger_1910.csv") # Cambiar por nombre para guardar
 ```
 
