@@ -86,7 +86,6 @@ variables_historicas_mmovil = function(dataset, periodos){
   dataset[, paste0(rollear, "__ravg") := frollmean(.SD, periodos),
      .SDcols = rollear,
      by = numero_de_cliente]
-  dataset <- dataset[,colSums(is.na(dataset))<nrow(dataset)]
   
   setcolorder( dataset, nuevo_orden )
   nuevo_orden <-  c( setdiff( colnames(dataset ) , "clase_binaria" ) , "clase_binaria" )
