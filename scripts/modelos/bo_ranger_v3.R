@@ -9,11 +9,13 @@ bo_ranger_v3 = function(dataset_train, dataset_test_1, dataset_test_2, nro_exper
   library("mlrMBO")
   
   dataset_train[  , clase_binaria := as.factor(ifelse( clase_binaria=="evento", "evento", "no_evento" )) ]
-  dataset_test[  , clase_binaria := as.factor(ifelse( clase_binaria=="evento", "evento", "no_evento" )) ]
+  dataset_test_1[  , clase_binaria := as.factor(ifelse( clase_binaria=="evento", "evento", "no_evento" )) ]
+  dataset_test_2[  , clase_binaria := as.factor(ifelse( clase_binaria=="evento", "evento", "no_evento" )) ]
   enero[  , clase_binaria := as.factor(ifelse( clase_binaria=="evento", "evento", "no_evento" )) ]
   
   dataset_train  <-  na.roughfix( dataset_train )
-  dataset_test  <-  na.roughfix( dataset_test )
+  dataset_test_1  <-  na.roughfix( dataset_test_1 )
+  dataset_test_2  <-  na.roughfix( dataset_test_2 )
   enero  <-  na.roughfix( enero )
   
   kexperimento <-  toString(nro_experimento) 
