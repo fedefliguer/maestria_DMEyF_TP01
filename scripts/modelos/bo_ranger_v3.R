@@ -1,7 +1,7 @@
 # Nombre de archivo: bo_ranger_v3.R
 # Función: Crea una optimización bayesiana para random forest. Agrega datos de la corrida y testea el minimo entre dos períodos.
 
-bo_ranger_v2 = function(dataset_train, dataset_test, nro_experimento, nro_iteraciones){
+bo_ranger_v2 = function(dataset_train, dataset_test_1, dataset_test_2, nro_experimento, nro_iteraciones){
   library("data.table")
   library("ranger")
   library("randomForest")
