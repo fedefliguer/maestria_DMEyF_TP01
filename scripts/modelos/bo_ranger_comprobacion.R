@@ -21,8 +21,6 @@ bo_ranger_comprobacion = function(dataset_train, dataset_test, nro_experimento, 
   ksubmit     <-  paste0(".//comprobacion//ranger_BO_4meses_submit_", kexperimento, ".csv" )
   kBO_iter    <-  nro_iteraciones
   
-  i = 1
-  
   estimar_ranger <- function( x )
   {
     modelo  <- ranger( formula= "clase_binaria ~ .",
