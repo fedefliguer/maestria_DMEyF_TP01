@@ -2,6 +2,7 @@
 # Función: Sobre el dataset original, crea las columnas que crearon en el dropbox, archivo '1002_fe_todoenuno_corrige.r'
 
 nuevas_columnas = function(dataset){
+  setnames(dataset, "mrentabilidad_annual", "mrentabilidad_anual")
   
   #acomodo los errores del dataset
   dataset[ foto_mes==201701,  ccajas_consultas   := NA ]
