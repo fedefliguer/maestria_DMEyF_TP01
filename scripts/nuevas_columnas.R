@@ -28,7 +28,7 @@ nuevas_columnas = function(dataset){
   dataset[ foto_mes==201904,  mttarjeta_visa_debitos_automaticos  := NA ]
 
   dataset[ foto_mes==201905,  mrentabilidad     := NA ]
-  dataset[ foto_mes==201905,  mrentabilidad_annual     := NA ]
+  dataset[ foto_mes==201905,  mrentabilidad_anual     := NA ]
   dataset[ foto_mes==201905,  mcomisiones       := NA ]
   dataset[ foto_mes==201905,  mpasivos_margen  := NA ]
   dataset[ foto_mes==201905,  mactivos_margen  := NA ]
@@ -42,7 +42,7 @@ nuevas_columnas = function(dataset){
   dataset[ foto_mes==201910,  mcomisiones_otras := NA ]
   dataset[ foto_mes==201910,  mcomisiones       := NA ]
   dataset[ foto_mes==201910,  mrentabilidad     := NA ]
-  dataset[ foto_mes==201910,  mrentabilidad_annual     := NA ]
+  dataset[ foto_mes==201910,  mrentabilidad_anual     := NA ]
   dataset[ foto_mes==201910,  chomebanking_transacciones   := NA ]
   dataset[ foto_mes==201910,  ctarjeta_visa_descuentos   := NA ]
   dataset[ foto_mes==201910,  ctarjeta_master_descuentos   := NA ]
