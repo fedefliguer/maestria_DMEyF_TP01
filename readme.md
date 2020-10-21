@@ -22,6 +22,7 @@ ds <- fread(karchivo_entrada_full, header=TRUE, sep=kcampos_separador)
 # Agrego columnas de FE
 source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/nuevas_columnas.R")
 nuevas_columnas(ds)
+# ds = ds[sample(.N,100000)] # Local. 100.000 rows para hacer la prueba local.
 
 # source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/rankear_decimales.R")
 # rankear_decimales(ds)
@@ -52,28 +53,28 @@ separacion_conjuntos(ds, train, test, pc_columnas, pc_filas_train)
 
 # Elegir qué modelo correr
 
-  # Árbol con grid search
-  # max_depths = c( 13, 12, 11, 10, 9)
-  # min_splits = c( 9, 10, 11, 12, 13)
-  # min_buckets = c( 9, 10, 11, 12, 13)
-  # source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
-  # rpart_gridsearch(ds_train, ds_test)
+# Árbol con grid search
+# max_depths = c( 13, 12, 11, 10, 9)
+# min_splits = c( 9, 10, 11, 12, 13)
+# min_buckets = c( 9, 10, 11, 12, 13)
+# source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/rpart_gridsearch.R")
+# rpart_gridsearch(ds_train, ds_test)
 
-  # Random forest básico
-  # source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/randomForest_basico.R")
-  # randomForest_basico(ds_train, ds_test)
+# Random forest básico
+# source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/randomForest_basico.R")
+# randomForest_basico(ds_train, ds_test)
 
-  # Random forest con optimización bayesiana
-  # Para correr local hay que crear una carpeta que se llame work en el directorio, para correr en la nube ?
-  # num_trees_BO = c(1, 999) # En dropbox de 1 a 999
-  # pmtry_BO = c(2, 40) # En dropbox de 2 a 40
-  # pmin.node.size_BO = c(1, 40) # En dropbox de 1 a 40
-  # pmax.depth_BO = c(0, 40) # En dropbox de 0 a 20
-  # numero_iteraciones = 2 # En dropbox es 100
-  # numero_experimento = 11 # Cada vez que hacemos una nueva, agregar un nro más
+# Random forest con optimización bayesiana
+# Para correr local hay que crear una carpeta que se llame work en el directorio, para correr en la nube ?
+# num_trees_BO = c(1, 999) # En dropbox de 1 a 999
+# pmtry_BO = c(2, 40) # En dropbox de 2 a 40
+# pmin.node.size_BO = c(1, 40) # En dropbox de 1 a 40
+# pmax.depth_BO = c(0, 40) # En dropbox de 0 a 20
+# numero_iteraciones = 2 # En dropbox es 100
+# numero_experimento = 11 # Cada vez que hacemos una nueva, agregar un nro más
 
-  #source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger.R")
-  #bo_ranger(ds_train, ds_test, numero_experimento, numero_iteraciones)
+#source_url("https://raw.githubusercontent.com/fedefliguer/maestria_DMEyF_TP01/main/scripts/modelos/bo_ranger.R")
+#bo_ranger(ds_train, ds_test, numero_experimento, numero_iteraciones)
 
 #LIGHTGBM
 
