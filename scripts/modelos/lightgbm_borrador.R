@@ -1,9 +1,10 @@
 # Líneas a cambiar:
-# 21: poner dir del dataset a usar
-# 63: poner dir del bucket b1
-# 66: nro de experimento
-# 69: cant de iteraciones
-# 156: configurar BO
+# 22: poner dir del dataset a usar
+# 62: poner dir del bucket b1
+# 67: nro de experimento
+# 70: cant de iteraciones
+# 127: num_iterations
+# 157: configurar BO
 
 library( "data.table")
 library(ggplot2)
