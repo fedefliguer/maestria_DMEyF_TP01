@@ -87,6 +87,6 @@ variables_historicas_mmovil = function(dataset, periodos, periodos_mmovil){
      .SDcols = rollear,
      by = numero_de_cliente]
   
-  nuevo_orden <-  c("numero_de_cliente", "foto_mes", sort(setdiff( colnames( ds ) , c("clase_binaria", "numero_de_cliente", "foto_mes"))), "clase_binaria")
-  setcolorder( ds, nuevo_orden )
+  nuevo_orden <-  c("numero_de_cliente", "foto_mes", sort(setdiff( colnames( dataset ) , c("clase_binaria", "numero_de_cliente", "foto_mes"))), "clase_binaria")
+  setcolorder( dataset, nuevo_orden )
   }
