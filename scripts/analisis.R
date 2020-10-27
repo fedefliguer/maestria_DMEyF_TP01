@@ -58,26 +58,31 @@ periodos_m8 = c(201904, 201905, 201906, 201907, 201908, 201909, 201911)
 m9 = lgb.load("m9.txt")
 periodos_m9 = c(201904, 201905, 201906, 201907, 201908, 201909, 201911)
 
-punto_de_corte = 0.025
 resumido <-   as.data.table(cbind("mes" =ds$foto_mes) )
 
-add_ganancia = function(modelo, periodos_no_considerar){
+add_prediction = function(modelo, periodos_no_considerar){
   prediction  <- predict(modelo, data.matrix( ds[, campos_buenos, with=FALSE ]))
-  ganancia_bruta  <- (prediction > punto_de_corte) * ds[, ifelse( clase_binaria=="evento",29250,-750)]
-  ganancia_ajustada  <- ganancia_bruta * ds[, ifelse( foto_mes %in% periodos_no_considerar, 0, 1)]
-  name_ganancia_ajustada = paste("g_", deparse(substitute(modelo)), sep="")
-  resumido[, (name_ganancia_ajustada) := ganancia_ajustada]
+  prediction_ajustada  <- prediction * ds[, ifelse( foto_mes %in% periodos_no_considerar, 0, 1)]
+  name_prediction = deparse(substitute(modelo))
+  resumido[, (name_prediction) := prediction_ajustada]
 }
 
-add_ganancia(m1, periodos_m1)
-add_ganancia(m2, periodos_m2)
-add_ganancia(m3, periodos_m3)
-add_ganancia(m4, periodos_m4)
-add_ganancia(m5, periodos_m5)
-add_ganancia(m6, periodos_m6)
-add_ganancia(m7, periodos_m7)
-add_ganancia(m8, periodos_m8)
-add_ganancia(m9, periodos_m9)
+add_prediction(m1, periodos_m1)
+add_prediction(m2, periodos_m2)
+add_prediction(m3, periodos_m3)
+add_prediction(m4, periodos_m4)
+add_prediction(m5, periodos_m5)
+add_prediction(m6, periodos_m6)
+add_prediction(m7, periodos_m7)
+add_prediction(m8, periodos_m8)
+add_prediction(m9, periodos_m9)
+
+punto_de_corte = 0.05
+
+lista_modelos <- setdiff(names(resumido), "mes")
+for(i in lista_modelos){
+  resumido[, paste("g_", (i)) := (get(i) > punto_de_corte) * ds[, ifelse( clase_binaria=="evento",29250,-750)]]
+  } 
 
 agrupado = resumido[, lapply(.SD, sum, na.rm=TRUE), by=mes ]
 agrupado <- melt(agrupado, id.vars = "mes")
