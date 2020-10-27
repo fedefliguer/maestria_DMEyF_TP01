@@ -77,17 +77,17 @@ add_prediction(m7, periodos_m7)
 add_prediction(m8, periodos_m8)
 add_prediction(m9, periodos_m9)
 
-punto_de_corte = 0.05
-
+punto_de_corte = 0.02
+resumido = resumido[, .SD, .SDcols = names(resumido) %like% "^m"]
 lista_modelos <- setdiff(names(resumido), "mes")
 for(i in lista_modelos){
-  resumido[, paste("g_", (i)) := (get(i) > punto_de_corte) * ds[, ifelse( clase_binaria=="evento",29250,-750)]]
-  } 
-
+  resumido[, paste("g_", (i), sep = "") := (get(i) > punto_de_corte) * ds[, ifelse( clase_binaria=="evento",29250,-750)]]
+} 
 agrupado = resumido[, lapply(.SD, sum, na.rm=TRUE), by=mes ]
 agrupado <- melt(agrupado, id.vars = "mes")
+agrupado$variable = as.character(agrupado$variable)
+agrupado = data.table(agrupado)[(variable %like% "g")]
 agrupado$mes = as.factor(agrupado$mes)
-
 ggplot(agrupado, aes(x = mes, y = value, color = variable)) +
   theme_bw() +
   geom_line() + 
