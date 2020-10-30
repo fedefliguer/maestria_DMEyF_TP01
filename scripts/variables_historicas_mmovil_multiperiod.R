@@ -1,3 +1,6 @@
+# Nombre de archivo: variables_historicas.R
+# Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo, promedio y tendencia en un vector de ventanas, más el último lag
+
 variables_historicas_fe_multiperiod = function(dataset, ventanas){
   library(Rcpp)
   cppFunction('NumericVector fhistC(NumericVector pcolumna, IntegerVector pdesde ) 
