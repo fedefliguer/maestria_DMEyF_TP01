@@ -65,36 +65,36 @@ dgeneracion  <- lgb.Dataset( data= data.matrix(  ds_train[ , campos_buenos, with
 
 # CASO 1
 
-optimo_2  <- list( num_iterations= 1468, learning_rate= 0.01503084, feature_fraction= 0.2575957, min_gain_to_split= 0.01428075, num_leaves= 94, lambda_l1= 3.758696, lambda_l2= 0.341236)
+optimo  <- list( num_iterations= 1468, learning_rate= 0.01503084, feature_fraction= 0.2575957, min_gain_to_split= 0.01428075, num_leaves= 94, lambda_l1= 3.758696, lambda_l2= 0.341236)
 
-modelo_2  <- lgb.train( data= dgeneracion,
+modelo  <- lgb.train( data= dgeneracion,
                         objective= "binary",
                         boost_from_average= TRUE,
                         max_bin= 31,
-                        num_iterations=    optimo_1$num_iterations,
-                        learning_rate=     optimo_1$learning_rate,
-                        feature_fraction=  optimo_1$feature_fraction,
-                        min_gain_to_split= optimo_1$min_gain_to_split,
-                        num_leaves=        optimo_1$num_leaves,
-                        lambda_l1=         optimo_1$lambda_l1,
-                        lambda_l2=         optimo_1$lambda_l2
+                        num_iterations=    optimo$num_iterations,
+                        learning_rate=     optimo$learning_rate,
+                        feature_fraction=  optimo$feature_fraction,
+                        min_gain_to_split= optimo$min_gain_to_split,
+                        num_leaves=        optimo$num_leaves,
+                        lambda_l1=         optimo$lambda_l1,
+                        lambda_l2=         optimo$lambda_l2
 )
 
-prediccion_201901_2  <- predict( modelo_2, 
+prediccion_201901  <- predict( modelo, 
                                  data.matrix( ene19[, campos_buenos, with=FALSE ])                                 )
 
-ganancia_201901_2  <- sum( (prediccion_201901_2 > 0.025) * 
+ganancia_201901  <- sum( (prediccion_201901 > 0.025) * 
                              ene19[, ifelse( clase_binaria=="evento",29250,-750)])
 
-prediccion_201911_2  <- predict( modelo_2, 
+prediccion_201911  <- predict( modelo, 
                                  data.matrix( nov19[, campos_buenos, with=FALSE ])                                 )
 
-ganancia_201911_2  <- sum( (prediccion_201911_2 > 0.025) * 
+ganancia_201911  <- sum( (prediccion_201911_2 > 0.025) * 
                              nov19[, ifelse( clase_binaria=="evento",29250,-750)])
 
-prediccion_202001_2  <- predict( modelo_2, 
+prediccion_202001  <- predict( modelo, 
                                  data.matrix( enero[, campos_buenos, with=FALSE ])                                 )
 
-entrega_2 <-   as.data.table(cbind( "numero_de_cliente"=enero$numero_de_cliente,  "prob" =prediccion_202001_2) )
-entrega_2[  ,  estimulo :=  as.integer( prob > 0.025)]
-fwrite( entrega_2[ ,  c("numero_de_cliente", "estimulo"), with=FALSE], sep=",",  file="./work/lightgbm_new_feature_optimo_entrega_2.csv")
+entrega <-   as.data.table(cbind( "numero_de_cliente"=enero$numero_de_cliente,  "prob" =prediccion_202001) )
+entrega[  ,  estimulo :=  as.integer( prob > 0.025)]
+fwrite( entrega[ ,  c("numero_de_cliente", "estimulo"), with=FALSE], sep=",",  file="./work/lightgbm_new_feature_optimo_entrega_2.csv")
