@@ -33,6 +33,7 @@ importances_max = importances_max[Maxima>0.003]
 importances_max$Feature = gsub("__tend","",importances_max$Feature)
 importances_max$Feature = gsub("__max","",importances_max$Feature)
 importances_max$Feature = gsub("__min","",importances_max$Feature)
+importances_max$Feature = gsub("__ravg","",importances_max$Feature)
 variables = unique(importances_max$Feature)
 
 ds = ds[, c("foto_mes", "numero_de_cliente", variables, "clase_binaria"), with=FALSE]
