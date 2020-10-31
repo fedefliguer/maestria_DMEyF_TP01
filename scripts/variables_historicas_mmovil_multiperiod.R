@@ -83,10 +83,6 @@ variables_historicas_fe_multiperiod = function(dataset, ventanas){
       dataset[ , paste( campo, paste0("__max_",v,sep="") , sep="" ):= nueva_col[ (2*last +1):(3*last) ]  ]
     }
     
-    dataset[, paste0(columnas_originales_a_procesar, paste0("__ravg_",v,sep=""),sep="") := frollmean(.SD, v),
-                 .SDcols = columnas_originales_a_procesar,
-                 by = numero_de_cliente]
-    
     dataset[ , paste0( columnas_originales_a_procesar, "_lag_1") := shift(.SD, 1, NA, "lag"), 
                   by=numero_de_cliente, 
                   .SDcols= columnas_originales_a_procesar]
