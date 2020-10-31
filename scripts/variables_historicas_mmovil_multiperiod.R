@@ -1,5 +1,5 @@
 # Nombre de archivo: variables_historicas.R
-# Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo, promedio y tendencia en un vector de ventanas, más el último lag
+# Función: Sobre el dataset original, genera columnas históricas: mínimo, máximo y tendencia en un vector de ventanas, más el último lag
 
 variables_historicas_fe_multiperiod = function(dataset, ventanas){
   library(Rcpp)
@@ -83,7 +83,7 @@ variables_historicas_fe_multiperiod = function(dataset, ventanas){
       dataset[ , paste( campo, paste0("__max_",v,sep="") , sep="" ):= nueva_col[ (2*last +1):(3*last) ]  ]
     }
     
-    dataset[, paste0(columnas_originales_a_procesar, paste0("__ravg_",v,sep=""),sep="") := frollmean(.SD, i),
+    dataset[, paste0(columnas_originales_a_procesar, paste0("__ravg_",v,sep=""),sep="") := frollmean(.SD, v),
                  .SDcols = columnas_originales_a_procesar,
                  by = numero_de_cliente]
     
